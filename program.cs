@@ -7,9 +7,6 @@ public class Program
     {
         try
         {
-            using LegalCasesContext db = new();
-            WriteLine($"Provider: {db.Database.ProviderName}");
-
             using (var context = new LegalCasesContext())
             {
                 var cases = context.Cases.ToList();

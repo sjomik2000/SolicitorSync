@@ -56,11 +56,11 @@ HTTP methods (GET, POST, PUT, DELETE).
 
 ## 4. ChangeLog 
 
-2025.02.18 - Github repository created 
-2025.03.01 - Commited SQL database and legalcases.cs and program.cs files to be able to 
++ 2025.02.18 - Github repository created 
++ 2025.03.01 - Commited SQL database and legalcases.cs and program.cs files to be able to 
 connect and work with the database
-2025.03.01 - Fixed the SQL connection error and added error handling for SQL connection. 
-2025.03.02 - Updated README.MD with project's description, features and task list.
++ 2025.03.01 - Fixed the SQL connection error and added error handling for SQL connection. 
++ 2025.03.02 - Updated README.MD with project's description, features and task list.
 
 
 

@@ -1,19 +1,32 @@
 using legalcases.EntityModels;
+using System.Linq;
 
 public class Program
 {
     public static void Main()
     {
-        using(var context = new LegalCasesContext())
+        try
         {
-            var cases = context.Cases.ToList();
-            foreach (var caseItem in cases)
-            {
-                WriteLine($"Case Name: {caseItem.CaseName}, Attourney: {caseItem.AssignedAttorney}, Date: {caseItem.CourtDate}");
-            }
-        }
+            using LegalCasesContext db = new();
+            WriteLine($"Provider: {db.Database.ProviderName}");
 
-        WriteLine("Press any key to exit..");
-        ReadKey();
+            using (var context = new LegalCasesContext())
+            {
+                var cases = context.Cases.ToList();
+                foreach (var caseItem in cases)
+                {
+                    WriteLine($"Case Name: {caseItem.case_name}, Attorney: {caseItem.assigned_attorney}, Date: {caseItem.court_date}");
+                }
+            }
+
+            WriteLine("Press any key to exit..");
+            ReadKey();
+        }
+        catch (Exception ex)
+        {
+            WriteLine($"An error occurred: {ex.Message}");
+            WriteLine("Press any key to exit..");
+            ReadKey();
+        }
     }
 }

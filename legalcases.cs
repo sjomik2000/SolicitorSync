@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace legalcases.EntityModels;
 
@@ -9,7 +10,7 @@ public class LegalCasesContext : DbContext
     private readonly string connectionString;
     public LegalCasesContext()
     {
-        string databaseFile = "legalcases.db";
+        string databaseFile = "LegalCases.db";
         string path = Path.Combine(Environment.CurrentDirectory, databaseFile);
         connectionString = $"Data Source={path}";
     }
@@ -25,14 +26,14 @@ public class LegalCasesContext : DbContext
 
 public class Case
 {
-    public int Id { get; set; }
-    public string CaseName { get; set; }
-    public string ClientName { get; set; }
-    public string CaseType { get; set; }
-    public string CaseStatus { get; set; }
-    public string AssignedAttorney { get; set; }
-    public DateTime CourtDate { get; set; }
-    public string CaseDescription { get; set; }
-    public string Documents { get; set; }
-    public string Notes { get; set; }
+    public int id { get; set; }
+    public string? case_name { get; set; }
+    public string? client_name { get; set; }
+    public string? case_type { get; set; }
+    public string? case_state { get; set; }
+    public string? assigned_attorney { get; set; }
+    public DateTime court_date { get; set; }
+    public string? case_description { get; set; }
+    public string? documents { get; set; }
+    public string? notes { get; set; }
 }

@@ -19,46 +19,38 @@ namespace SolicitorSync.Migrations
 
             modelBuilder.Entity("legalcases.EntityModels.Case", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AssignedAttorney")
-                        .IsRequired()
+                    b.Property<string>("assigned_attorney")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CaseDescription")
-                        .IsRequired()
+                    b.Property<string>("case_description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CaseName")
-                        .IsRequired()
+                    b.Property<string>("case_name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CaseStatus")
-                        .IsRequired()
+                    b.Property<string>("case_state")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CaseType")
-                        .IsRequired()
+                    b.Property<string>("case_type")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ClientName")
-                        .IsRequired()
+                    b.Property<string>("client_name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CourtDate")
+                    b.Property<DateTime>("court_date")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Documents")
-                        .IsRequired()
+                    b.Property<string>("documents")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Notes")
-                        .IsRequired()
+                    b.Property<string>("notes")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Cases");
                 });

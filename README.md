@@ -61,6 +61,8 @@ HTTP methods (GET, POST, PUT, DELETE).
 connect and work with the database
 + 2025.03.01 - Fixed the SQL connection error and added error handling for SQL connection. 
 + 2025.03.02 - Updated README.MD with project's description, features and task list.
++ 2025.03.03 - Created Contract folders with request and response files, created API folders 
++ and repository files.
 
 
 

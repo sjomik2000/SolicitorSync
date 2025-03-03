@@ -32,8 +32,8 @@ capture key events or errors.
 The project uses xUnit unit tests for the service layer to demonstrate adherence to the 
 software development lifecycle and quality assurance practices.
 
-### F) Data Persistence: The project uses Entity Framework Core with a SQL database (SQLite) to
-store case data.
+### F) Data Persistence
+The project uses Entity Framework Core with a SQL database (SQLite) to store case data.
 
 ## 3. TaskList
 

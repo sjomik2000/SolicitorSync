@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cases.Contracts.Requests
-{
-    class UpdateCaseRequest
+namespace Cases.Contracts.Requests;
+public class UpdateCaseRequest
     {
         public required string case_name { get; init; }
         public required string client_name { get; init; }
@@ -18,4 +17,3 @@ namespace Cases.Contracts.Requests
         public string? documents { get; init; }
         public string? notes { get; init; }
     }
-}

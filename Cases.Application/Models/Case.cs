@@ -8,7 +8,7 @@ namespace Cases.Application.Models
 {
     public class Case
     {
-        public required Guid id { get; init; }
+        public required int id { get; init; }
         public required string case_name { get; init; }
         public required string client_name { get; init; }
         public required string case_type { get; set; }

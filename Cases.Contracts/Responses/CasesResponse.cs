@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cases.Contracts.Responses
-{
-    class CasesResponse
+namespace Cases.Contracts.Responses;
+public class CasesResponse
     {
         public required IEnumerable<CaseResponse> Items { get; init; } = Enumerable.Empty<CaseResponse>();
     }
-}

@@ -37,17 +37,18 @@ The project uses Entity Framework Core with a SQL database (SQLite) to store cas
 
 ## 3. TaskList
 
-- [x] Create GitHub repository 
-- [x] Download a model database and set it up in SQLite
-- [x] Create a connection string to Database and test access using the program.cs
+- [x] Create GitHub repository. 
+- [x] Download a model database and set it up in SQLite.
+- [x] Create a connection string to Database and test access using the program.cs .
 - [ ] Create a RESTful API with CRUD operations to manage case files. Implement routing and 
 HTTP methods (GET, POST, PUT, DELETE).
-- [ ] Create Controllers, Services and Data Access Layers for the API
+- [ ] Create Controllers, Services and Data Access Layers for the API.
 - [ ] Integrate Swagger for API documentation. Write unit tests for core functionality 
 (services/business logic).
 - [ ] Expand error handling to catch API connection, and request errors.
 - [ ] Implement middleware for error handling. Add logging to track API requests and errors.
-- [ ] Add several unit tests using xUnit
+- [ ] Add several unit tests using xUnit.
+- [ ] Implement GUID into database.
 - [ ] Simulate a pull request workflow.
 - [ ] Refactor code.
 - [ ] Add commenting to all the code files to explain its functionalities.
@@ -62,7 +63,9 @@ connect and work with the database
 + 2025.03.01 - Fixed the SQL connection error and added error handling for SQL connection. 
 + 2025.03.02 - Updated README.MD with project's description, features and task list.
 + 2025.03.03 - Created Contract folders with request and response files, created API folders 
-+ and repository files.
+and repository files.
++ 2025.03.04 - Created Controllers class in Cases.Api and configured HTTP connection, 
+verified POST request.
 
 
 

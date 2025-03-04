@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using System.ComponentModel.DataAnnotations.Schema;
+using Cases.Application.Models;
 
 namespace legalcases.EntityModels;
 
@@ -24,7 +25,7 @@ public class LegalCasesContext : DbContext
 }
 //Creating a model class to work with each Case
 
-public class Case
+/*public class Case
 {
     public int id { get; set; }
     public string? case_name { get; set; }
@@ -37,3 +38,4 @@ public class Case
     public string? documents { get; set; }
     public string? notes { get; set; }
 }
+*/

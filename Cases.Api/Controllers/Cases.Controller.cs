@@ -31,13 +31,15 @@ namespace Cases.Api.Controllers
             int newCaseId = lastCaseId + 1;
             var caseItem = request.MapToCase(newCaseId);
             var result = await _caseRepository.CreateAsync(caseItem);
-            return CreatedAtAction(nameof(Get), new { id = caseItem.id }, caseItem);
+            return CreatedAtAction(nameof(Get), new { idOrSlug = caseItem.id }, caseItem);
         }
 
         [HttpGet(ApiEndpoints.Cases.Get)]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] string idOrSlug)
         {
-            var caseItem = await _caseRepository.GetByIdAsync(id);
+            var caseItem = int.TryParse(idOrSlug, out int id)
+                ? await _caseRepository.GetByIdAsync(id)
+                : await _caseRepository.GetBySlugAsync(idOrSlug);
             if (caseItem is null)
             {
                 return NotFound();

@@ -24,7 +24,7 @@ public static class ContractMapping
             notes = request.notes
 
         };
-	}
+    }
 
     public static CaseResponse MapToResponse(this Case caseItem)
     {
@@ -32,6 +32,7 @@ public static class ContractMapping
         {
             id = caseItem.id,
             case_name = caseItem.case_name,
+            slug = caseItem.slug,
             client_name = caseItem.client_name,
             case_type = caseItem.case_type,
             case_state = caseItem.case_state,

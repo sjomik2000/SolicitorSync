@@ -67,8 +67,10 @@ connect and work with the database
 and repository files.
 + 2025.03.04 - Created Controllers class in Cases.Api and configured HTTP connection, 
 verified Create request.
-+ 2025.03.04 - Created mappings for requests and responses, created and verified Get, GetAll, 
-Update and Delete requests.
++ 2025.03.04 - Created mappings for requests and responses, created Api endpoints, created 
+and verified Get, GetAll, Update and Delete requests.
++ 2025.03.06 - Added slug generation and slug based retrieval method for cases for 
+Get request.
 
 
 

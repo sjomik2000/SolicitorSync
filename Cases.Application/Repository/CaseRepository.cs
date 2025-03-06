@@ -12,6 +12,7 @@ namespace Cases.Application.Repositories
         private readonly List<Case> _cases = new();
         public Task<bool> CreateAsync(Case caseItem)
         {
+            caseItem.GenerateSlug();
             _cases.Add(caseItem);
             return Task.FromResult(true);
         }
@@ -31,6 +32,12 @@ namespace Cases.Application.Repositories
         public Task<Case?> GetByIdAsync(int id)
         {
             var caseItem = _cases.SingleOrDefault(x => x.id == id);
+            return Task.FromResult(caseItem);
+        }
+
+        public Task<Case?> GetBySlugAsync(string slug)
+        {
+            var caseItem = _cases.SingleOrDefault(x => x.slug == slug);
             return Task.FromResult(caseItem);
         }
 

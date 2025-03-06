@@ -13,6 +13,8 @@ namespace Cases.Application.Repositories
 
         Task<Case?> GetByIdAsync(int id);
 
+        Task<Case?> GetBySlugAsync(string slug);
+
         Task<IEnumerable<Case>> GetAllAsync();
 
         Task<bool> UpdateAsync(Case caseItem);

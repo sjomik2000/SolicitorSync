@@ -10,6 +10,8 @@ public class CaseResponse
     {
         public required int id { get; init; }
         public required string case_name { get; init; }
+
+        public required string slug { get; init; }
         public required string client_name { get; init; }
         public required string case_type { get; init; }
         public required string case_state { get; init; }

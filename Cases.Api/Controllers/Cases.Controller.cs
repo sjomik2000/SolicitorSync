@@ -26,10 +26,7 @@ namespace Cases.Api.Controllers
         [HttpPost(ApiEndpoints.Cases.Create)]
         public async Task<IActionResult> Create([FromBody] CreateCaseRequest request)
         {
-            var cases = await _caseRepository.GetAllAsync();
-            int lastCaseId = cases.Any() ? cases.Max(c => c.id) : 0;
-            int newCaseId = lastCaseId + 1;
-            var caseItem = request.MapToCase(newCaseId);
+            var caseItem = request.MapToCase();
             var result = await _caseRepository.CreateAsync(caseItem);
             return CreatedAtAction(nameof(Get), new { idOrSlug = caseItem.id }, caseItem);
         }
@@ -37,7 +34,7 @@ namespace Cases.Api.Controllers
         [HttpGet(ApiEndpoints.Cases.Get)]
         public async Task<IActionResult> Get([FromRoute] string idOrSlug)
         {
-            var caseItem = int.TryParse(idOrSlug, out int id)
+            var caseItem = Guid.TryParse(idOrSlug, out Guid id)
                 ? await _caseRepository.GetByIdAsync(id)
                 : await _caseRepository.GetBySlugAsync(idOrSlug);
             if (caseItem is null)
@@ -57,9 +54,10 @@ namespace Cases.Api.Controllers
         }
 
         [HttpPut(ApiEndpoints.Cases.Update)]
-        public async Task<IActionResult> Update([FromRoute]int id, [FromBody]UpdateCaseRequest request)
+        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateCaseRequest request)
         {
-            var caseItem = request.MapToCase(id);
+            var caseItem = await _caseRepository.GetByIdAsync(id);
+            caseItem = request.MapToCase(id, caseItem);
             var updated = await _caseRepository.UpdateAsync(caseItem);
             if (!updated)
             {
@@ -69,7 +67,7 @@ namespace Cases.Api.Controllers
             return Ok(response);
         }
         [HttpDelete(ApiEndpoints.Cases.Delete)]
-        public async Task<IActionResult> Delete([FromRoute]int id)
+        public async Task<IActionResult> Delete([FromRoute]Guid id)
         {
             var deleted = await _caseRepository.DeleteByIdAsync(id);
             if (!deleted)

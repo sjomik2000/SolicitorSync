@@ -8,9 +8,10 @@ namespace Cases.Contracts.Responses;
 
 public class CaseResponse
     {
-        public required int id { get; init; }
+        public required Guid id { get; init; }
         public required string case_name { get; init; }
-
+        public required DateTime created_date { get; init; }
+        public DateTime? updated_date { get; init; }
         public required string slug { get; init; }
         public required string client_name { get; init; }
         public required string case_type { get; init; }

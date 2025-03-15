@@ -8,12 +8,13 @@ using Cases.Contracts.Responses;
 namespace Cases.Api.Mapping;
 public static class ContractMapping
 {
-	public static Case MapToCase(this CreateCaseRequest request, int newCaseId)
+	public static Case MapToCase(this CreateCaseRequest request)
 	{
         return new Case
         {
-            id = newCaseId,
+            id = Guid.NewGuid(),
             case_name = request.case_name,
+            created_date = DateTime.UtcNow,
             client_name = request.client_name,
             case_type = request.case_type,
             case_state = request.case_state,
@@ -32,6 +33,8 @@ public static class ContractMapping
         {
             id = caseItem.id,
             case_name = caseItem.case_name,
+            created_date = caseItem.created_date,
+            updated_date = caseItem.updated_date,
             slug = caseItem.slug,
             client_name = caseItem.client_name,
             case_type = caseItem.case_type,
@@ -52,12 +55,14 @@ public static class ContractMapping
         };
     }
 
-    public static Case MapToCase(this UpdateCaseRequest request, int id)
+    public static Case MapToCase(this UpdateCaseRequest request, Guid id, Case existingCase)
     {
-        return new Case
+        var updatedCase = new Case
         {
             id = id,
             case_name = request.case_name,
+            created_date = existingCase.created_date,
+            updated_date = DateTime.UtcNow,
             client_name = request.client_name,
             case_type = request.case_type,
             case_state = request.case_state,
@@ -68,5 +73,7 @@ public static class ContractMapping
             notes = request.notes
 
         };
+        updatedCase.SetSlug(existingCase.slug);
+        return updatedCase;
     }
 }

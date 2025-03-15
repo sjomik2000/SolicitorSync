@@ -11,8 +11,10 @@ namespace Cases.Application.Models
 {
     public partial class Case
     {
-        public required int id { get; init; }
+        public required Guid id { get; init; }
         public required string case_name { get; init; }
+        public required DateTime created_date { get; init; }
+        public DateTime? updated_date { get; init; }
         public string slug { get; private set; } = string.Empty;
         public required string client_name { get; init; }
         public required string case_type { get; set; }
@@ -39,6 +41,11 @@ namespace Cases.Application.Models
                 var slugId = generator.GenerateString(6);
                 slug = $"{sluggedName}-{slugId}";
             }
+        }
+
+        public void SetSlug(string newSlug)
+        {
+            slug = newSlug;
         }
 
         [GeneratedRegex("[^0-9A-Za-z _-]", RegexOptions.NonBacktracking, 10)]

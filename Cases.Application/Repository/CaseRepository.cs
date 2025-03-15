@@ -17,7 +17,7 @@ namespace Cases.Application.Repositories
             return Task.FromResult(true);
         }
 
-        public Task<bool> DeleteByIdAsync(int id)
+        public Task<bool> DeleteByIdAsync(Guid id)
         {
             var removedCount = _cases.RemoveAll(x => x.id == id);
             var caseRemoved = removedCount > 0;
@@ -29,7 +29,7 @@ namespace Cases.Application.Repositories
             return Task.FromResult(_cases.AsEnumerable());
         }
 
-        public Task<Case?> GetByIdAsync(int id)
+        public Task<Case?> GetByIdAsync(Guid id)
         {
             var caseItem = _cases.SingleOrDefault(x => x.id == id);
             return Task.FromResult(caseItem);

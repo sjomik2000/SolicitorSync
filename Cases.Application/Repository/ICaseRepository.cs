@@ -11,7 +11,7 @@ namespace Cases.Application.Repositories
     {
         Task<bool> CreateAsync(Case caseItem);
 
-        Task<Case?> GetByIdAsync(int id);
+        Task<Case?> GetByIdAsync(Guid id);
 
         Task<Case?> GetBySlugAsync(string slug);
 
@@ -19,6 +19,6 @@ namespace Cases.Application.Repositories
 
         Task<bool> UpdateAsync(Case caseItem);
 
-        Task<bool> DeleteByIdAsync(int id);
+        Task<bool> DeleteByIdAsync(Guid id);
     }
 }

@@ -5,21 +5,23 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Logging;
+using Cases.Application.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
-// Add services to the container.
+// Services for the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
+builder.Services.AddDatabase(config["Database:ConnectionString"]!);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -31,5 +33,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
+await dbInitializer.InitializeAsync();
 
 app.Run("https://localhost:5002");

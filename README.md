@@ -43,14 +43,14 @@ The project uses Entity Framework Core with a SQL database (SQLite) to store cas
 - [x] Create a RESTful API with CRUD operations to manage case files. Implement routing and 
 HTTP methods for Create, Update, Get, GetAll and Delete requests for the temporary database.
 - [x] Create slug generation and slug based retrieval method for Get request.
-- [ ] Integrate API calls into SQL database. 
+- [x] Implement GUID into database.
+- [x] Integrate API calls into SQL database. 
 - [ ] Create Controllers, Services and Data Access Layers for the API.
+- [ ] Implement middleware for error handling. Add logging to track API requests and errors.
+- [ ] Expand error handling to catch API connection, and request errors.
 - [ ] Integrate Swagger for API documentation. Write unit tests for core functionality 
 (services/business logic).
-- [ ] Expand error handling to catch API connection, and request errors.
-- [ ] Implement middleware for error handling. Add logging to track API requests and errors.
 - [ ] Add several unit tests using xUnit.
-- [x] Implement GUID into database.
 - [ ] Simulate a pull request workflow.
 - [ ] Refactor code.
 - [ ] Add commenting to all the code files to explain its functionalities.
@@ -74,6 +74,9 @@ and verified Get, GetAll, Update and Delete requests.
 Get request.
 + 2025.03.15 - Implemented GUID generation into the case files, added created_date and 
 updated_date attributes.
++ 2025.03.17 - Integrated API calls into PostgreSQL database using Npgsql and Dapper 
+packages, added database connection and initialization files. Added Docker containerization
+file. 
 
 
 

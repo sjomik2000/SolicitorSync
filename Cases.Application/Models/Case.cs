@@ -15,7 +15,7 @@ namespace Cases.Application.Models
         public required string case_name { get; init; }
         public required DateTime created_date { get; init; }
         public DateTime? updated_date { get; init; }
-        public string slug { get; private set; } = string.Empty;
+        public string slug { get; internal set; } = string.Empty;
         public required string client_name { get; init; }
         public required string case_type { get; set; }
         public required string case_state { get; set; }

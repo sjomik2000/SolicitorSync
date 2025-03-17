@@ -20,5 +20,7 @@ namespace Cases.Application.Repositories
         Task<bool> UpdateAsync(Case caseItem);
 
         Task<bool> DeleteByIdAsync(Guid id);
+
+        Task<bool> ExistsByIdAsync(Guid id);
     }
 }

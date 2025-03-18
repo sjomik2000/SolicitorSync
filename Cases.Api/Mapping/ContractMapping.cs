@@ -60,17 +60,17 @@ public static class ContractMapping
         var updatedCase = new Case
         {
             id = id,
-            case_name = request.case_name,
+            case_name = request.case_name ?? existingCase.case_name,
             created_date = existingCase.created_date,
             updated_date = DateTime.UtcNow,
-            client_name = request.client_name,
-            case_type = request.case_type,
-            case_state = request.case_state,
-            assigned_attorney = request.assigned_attorney,
-            court_date = request.court_date,
-            case_description = request.case_description,
-            documents = request.documents,
-            notes = request.notes
+            client_name = request.client_name ?? existingCase.client_name,
+            case_type = request.case_type ?? existingCase.case_type,
+            case_state = request.case_state ?? existingCase.case_state,
+            assigned_attorney = request.assigned_attorney ?? existingCase.assigned_attorney,
+            court_date = request.court_date ?? existingCase.court_date,
+            case_description = request.case_description ?? existingCase.case_description,
+            documents = request.documents ?? existingCase.documents,
+            notes = request.notes ?? existingCase.notes
 
         };
         updatedCase.SetSlug(existingCase.slug);

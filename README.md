@@ -45,8 +45,10 @@ HTTP methods for Create, Update, Get, GetAll and Delete requests for the tempora
 - [x] Create slug generation and slug based retrieval method for Get request.
 - [x] Implement GUID into database.
 - [x] Integrate API calls into SQL database. 
-- [ ] Create Controllers, Services and Data Access Layers for the API.
-- [ ] Implement middleware for error handling. Add logging to track API requests and errors.
+- [x] Create Controllers, Services and Data Access Layers for the API.
+- [x] Implement middleware for validating Create Case requests. 
+- [ ] Add logging to track API requests and errors.
+- [ ] Implement middleware for error handling.
 - [ ] Expand error handling to catch API connection, and request errors.
 - [ ] Integrate Swagger for API documentation. Write unit tests for core functionality 
 (services/business logic).
@@ -77,6 +79,9 @@ updated_date attributes.
 + 2025.03.17 - Integrated API calls into PostgreSQL database using Npgsql and Dapper 
 packages, added database connection and initialization files. Added Docker containerization
 file. 
++ 2025.03.18 - Added 15 model cases into the database. 
++ 2025.03.18 - Added Service layer business logic. Implemented validation for Create Case 
+request using FluentValidation package and added ValidationMappingMiddleware for API response.
 
 
 

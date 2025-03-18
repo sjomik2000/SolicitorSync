@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Cases.Application.Repositories;
 using Cases.Application.Database;
+using Cases.Application.Services;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Cases.Application.Validators;
 
 namespace Cases.Application
 {
@@ -14,6 +18,8 @@ namespace Cases.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddSingleton<ICaseRepository, CaseRepository>();
+            services.AddSingleton<ICaseService, CaseService>();
+            services.AddValidatorsFromAssemblyContaining<CaseValidator>(ServiceLifetime.Singleton);
             return services;
         }
 

@@ -1,11 +1,11 @@
 # SolicitorSync
 
 ## 1. Brief description
-SolicitorSync is a lightweight ASP.NET Core Web API that simulates a case management system 
-for the Solicitors Regulation Authority. The API will allow users (e.g., internal staff) to 
-manage legal cases or complaints related to solicitor conduct. This project demonstrates the
-ability to design RESTful APIs, interact with a database, and produce well-documented, 
-high-quality code—all while using modern development practices.
+SolicitorSync is a lightweight ASP.NET Core Web API that simulates a case management system. 
+The API will allow users (e.g., internal staff) to manage legal cases or complaints related 
+to solicitor conduct. This project demonstrates the ability to design RESTful APIs, interact 
+with a database, and produce well-documented, high-quality codeâ€”all while using modern 
+development practices.
 
 ## 2. Features 
 

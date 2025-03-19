@@ -10,6 +10,7 @@ using Cases.Application.Services;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Cases.Application.Validators;
+using Microsoft.Extensions.Logging;
 
 namespace Cases.Application
 {

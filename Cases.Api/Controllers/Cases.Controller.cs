@@ -11,6 +11,7 @@ using System.Linq;
 using Cases.Api;
 using System.Reflection.Metadata.Ecma335;
 using Cases.Application.Services;
+using System.Collections.Generic;
 
 namespace Cases.Api.Controllers
 {
@@ -18,10 +19,12 @@ namespace Cases.Api.Controllers
     public class CasesController : ControllerBase
     {
         private readonly ICaseService _caseService;
+        private readonly ILogger<CasesController> _logger;
 
-        public CasesController(ICaseService caseRepository)
+        public CasesController(ICaseService caseRepository, ILogger<CasesController> logger)
         {
             _caseService = caseRepository;
+            _logger = logger;
         }
 
         [HttpPost(ApiEndpoints.Cases.Create)]
@@ -29,6 +32,7 @@ namespace Cases.Api.Controllers
         {
             var caseItem = request.MapToCase();
             var result = await _caseService.CreateAsync(caseItem);
+            _logger.LogInformation($"Created {caseItem.case_name} case in SQL database with the new slug: {caseItem.slug}.");
             return CreatedAtAction(nameof(Get), new { idOrSlug = caseItem.id }, caseItem);
         }
 
@@ -42,6 +46,7 @@ namespace Cases.Api.Controllers
             {
                 return NotFound();
             }
+            _logger.LogInformation($"Retrieved case with slug: {caseItem.slug} from SQL database.");
             var response = caseItem.MapToResponse();
             return Ok(response);
         }
@@ -49,8 +54,16 @@ namespace Cases.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var cases = await _caseService.GetAllAsync();
+            int caseCount = cases.Count();
+            if (caseCount == 1)
+            {
+                _logger.LogInformation($"Retrieved {caseCount} case from SQL database.");
+            }
+            else
+            {
+                _logger.LogInformation($"Retrieved {caseCount} cases from SQL database.");
+            }
             var casesResponse = cases.MapToResponse();
-
             return Ok(casesResponse);
         }
 
@@ -64,17 +77,25 @@ namespace Cases.Api.Controllers
             {
                 return NotFound();
             }
+            var requestJson = JsonSerializer.Serialize(request);
+            var requestDict = JsonSerializer.Deserialize<Dictionary<string, object>>(requestJson);
+            var filteredRequestDict = requestDict.Where(kv => kv.Value != null && kv.Value.ToString() != string.Empty);
+            var updatedValues = string.Join(", ", filteredRequestDict.Select(kv => $"{kv.Key}: {kv.Value}"));
+            _logger.LogInformation($"Updated case with slug: {caseItem.slug}.");
+            _logger.LogInformation($"Values updated: {updatedValues}.");
             var response = caseItem.MapToResponse();
             return Ok(response);
         }
         [HttpDelete(ApiEndpoints.Cases.Delete)]
         public async Task<IActionResult> Delete([FromRoute]Guid id)
         {
+            var caseItem = await _caseService.GetByIdAsync(id);
             var deleted = await _caseService.DeleteByIdAsync(id);
             if (!deleted)
             {
                 return NotFound();
             }
+            _logger.LogInformation($"Deleted case with slug: {caseItem.slug}.");
             return Ok();
         }
     }

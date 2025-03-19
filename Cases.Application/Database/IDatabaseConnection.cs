@@ -9,6 +9,6 @@ namespace Cases.Application.Database
 {
     public interface IDatabaseConnection
     {
-        Task<IDbConnection> CreateConnectionAsync();
+        Task<IDbConnection> CreateConnectionAsync(CancellationToken token = default);
     }
 }

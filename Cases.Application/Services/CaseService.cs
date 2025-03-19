@@ -20,41 +20,41 @@ namespace Cases.Application.Services
             _caseValidator = caseValidator;
         }
 
-        public async Task<bool> CreateAsync(Case caseItem)
+        public async Task<bool> CreateAsync(Case caseItem, CancellationToken token = default)
         {
-            await _caseValidator.ValidateAndThrowAsync(caseItem);
-            return await _caseRepository.CreateAsync(caseItem);
+            await _caseValidator.ValidateAndThrowAsync(caseItem, cancellationToken: token);
+            return await _caseRepository.CreateAsync(caseItem, token);
         }
 
-        public Task<bool> DeleteByIdAsync(Guid id)
+        public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
         {
-            return _caseRepository.DeleteByIdAsync(id);
+            return _caseRepository.DeleteByIdAsync(id, token);
         }
 
-        public Task<IEnumerable<Case>> GetAllAsync()
+        public Task<IEnumerable<Case>> GetAllAsync(CancellationToken token = default)
         {
-            return _caseRepository.GetAllAsync();
+            return _caseRepository.GetAllAsync(token);
         }
 
-        public Task<Case?> GetByIdAsync(Guid id)
+        public Task<Case?> GetByIdAsync(Guid id, CancellationToken token = default)
         {
-            return _caseRepository.GetByIdAsync(id);
+            return _caseRepository.GetByIdAsync(id, token);
         }
 
-        public Task<Case?> GetBySlugAsync(string slug)
+        public Task<Case?> GetBySlugAsync(string slug, CancellationToken token = default)
         {
-            return _caseRepository.GetBySlugAsync(slug);
+            return _caseRepository.GetBySlugAsync(slug, token);
         }
 
-        public async Task<Case?> UpdateAsync(Case caseItem)
+        public async Task<Case?> UpdateAsync(Case caseItem, CancellationToken token = default)
         {
-            await _caseValidator.ValidateAndThrowAsync(caseItem);
-            var exists = await _caseRepository.ExistsByIdAsync(caseItem.id);
+            await _caseValidator.ValidateAndThrowAsync(caseItem, cancellationToken: token);
+            var exists = await _caseRepository.ExistsByIdAsync(caseItem.id, token);
             if (!exists)
             {
                 return null;
             }
-            await _caseRepository.UpdateAsync(caseItem);
+            await _caseRepository.UpdateAsync(caseItem, token);
             return caseItem;
         }
     }

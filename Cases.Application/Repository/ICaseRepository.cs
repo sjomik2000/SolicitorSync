@@ -9,18 +9,18 @@ namespace Cases.Application.Repositories
 {
     public interface ICaseRepository
     {
-        Task<bool> CreateAsync(Case caseItem);
+        Task<bool> CreateAsync(Case caseItem, CancellationToken token = default);
 
-        Task<Case?> GetByIdAsync(Guid id);
+        Task<Case?> GetByIdAsync(Guid id, CancellationToken token = default);
 
-        Task<Case?> GetBySlugAsync(string slug);
+        Task<Case?> GetBySlugAsync(string slug, CancellationToken token = default);
 
-        Task<IEnumerable<Case>> GetAllAsync();
+        Task<IEnumerable<Case>> GetAllAsync(CancellationToken token = default);
 
-        Task<bool> UpdateAsync(Case caseItem);
+        Task<bool> UpdateAsync(Case caseItem, CancellationToken token = default);
 
-        Task<bool> DeleteByIdAsync(Guid id);
+        Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
 
-        Task<bool> ExistsByIdAsync(Guid id);
+        Task<bool> ExistsByIdAsync(Guid id, CancellationToken token = default);
     }
 }

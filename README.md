@@ -82,6 +82,8 @@ file.
 + 2025.03.18 - Added 15 model cases into the database. 
 + 2025.03.18 - Added Service layer business logic. Implemented validation for Create Case 
 request using FluentValidation package and added ValidationMappingMiddleware for API response.
++ 2025.03.19 - Added Logging information for API requests and Cancellation token for all layers 
+of actions down to the database.
 
 
 

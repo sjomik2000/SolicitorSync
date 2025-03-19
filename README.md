@@ -47,8 +47,8 @@ HTTP methods for Create, Update, Get, GetAll and Delete requests for the tempora
 - [x] Integrate API calls into SQL database. 
 - [x] Create Controllers, Services and Data Access Layers for the API.
 - [x] Implement middleware for validating Create Case requests. 
-- [ ] Add logging to track API requests and errors.
-- [ ] Implement middleware for error handling.
+- [x] Add logging to track API requests.
+- [ ] Implement middleware for error handling and logging of errors.
 - [ ] Expand error handling to catch API connection, and request errors.
 - [ ] Integrate Swagger for API documentation. Write unit tests for core functionality 
 (services/business logic).

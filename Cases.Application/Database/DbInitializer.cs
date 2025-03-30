@@ -9,8 +9,10 @@ namespace Cases.Application.Database
 {
     public class DbInitializer
     {
+        // Instantiating _databaseConnection object
         private readonly IDatabaseConnection _databaseConnection;
 
+        // Using DbInitializer constructor to inject information into _databaseConnection
         public DbInitializer(IDatabaseConnection databaseConnection)
         {
             _databaseConnection = databaseConnection;
@@ -18,7 +20,7 @@ namespace Cases.Application.Database
 
         public async Task InitializeAsync()
         {
-            using var connection = await _databaseConnection.CreateConnectionAsync();
+            using var connection = await _databaseConnection.CreateConnectionAsync(); // Establishing DB connection
 
             await connection.ExecuteAsync("""
                 create table if not exists cases (

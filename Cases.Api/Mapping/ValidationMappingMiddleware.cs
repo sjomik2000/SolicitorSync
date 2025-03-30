@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Cases.Api.Mapping
 {
+    // This file is used to initialize ValidationMappingMiddleWare
+    // Using Validation checks (from Cases.Application.CaseValidator)
+    // if Validation is failed the ValidationFailure response within
+    // JSON format is sent back to the server.
     public class ValidationMappingMiddleware
     {
         private readonly RequestDelegate _next;

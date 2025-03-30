@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+// Case request template to receive API request for creating a new case.
 namespace Cases.Contracts.Requests;
 public class CreateCaseRequest
 {

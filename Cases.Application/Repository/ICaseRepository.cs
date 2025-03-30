@@ -7,6 +7,7 @@ using Cases.Application.Models;
 
 namespace Cases.Application.Repositories
 {
+    //Interface for Repository layer to define all repository layer actions.
     public interface ICaseRepository
     {
         Task<bool> CreateAsync(Case caseItem, CancellationToken token = default);

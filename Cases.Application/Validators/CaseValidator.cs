@@ -11,7 +11,7 @@ namespace Cases.Application.Validators
 {
     public class CaseValidator : AbstractValidator<Case>
     {
-
+        //Using Fluent Validation package, this file checks if all rules are met e.g case name is not empty to validate request.
         public CaseValidator()
         {
             RuleFor(x => x.case_name).NotEmpty();
@@ -21,6 +21,6 @@ namespace Cases.Application.Validators
             RuleFor(x => x.case_description).NotEmpty();
 
         }
-
+        
     }
 }

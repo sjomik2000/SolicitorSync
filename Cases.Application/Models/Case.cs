@@ -8,6 +8,7 @@ using System.CodeDom.Compiler;
 using Cases.Application.Tools;
 
 namespace Cases.Application.Models
+// Case model structure is registered within this file.
 {
     public partial class Case
     {
@@ -25,6 +26,7 @@ namespace Cases.Application.Models
         public string? documents { get; set; }
         public string? notes { get; set; }
 
+        //Once case name is registered, Case constructor is used to call GenerateSlug() method
         public Case()
         {
             if (!String.IsNullOrEmpty(case_name))
@@ -36,18 +38,20 @@ namespace Cases.Application.Models
         {
             if (string.IsNullOrEmpty(slug))
             {
+                //Regex is used to strip all unwanted charachters within the case name and replace spaces with - after that
+                // GenerateString method is called to concatinate 6 random characters onto the slugID string.
                 var sluggedName = SlugRegex().Replace(case_name, string.Empty).ToLower().Replace(" ", "-");
                 StringGenerator generator = new StringGenerator();
                 var slugId = generator.GenerateString(6);
                 slug = $"{sluggedName}-{slugId}";
             }
         }
-
+        // Method to retain the same slug during Update request mapping
         public void SetSlug(string newSlug)
         {
             slug = newSlug;
         }
-
+        //Regex logic for SlugRegex() method.
         [GeneratedRegex("[^0-9A-Za-z _-]", RegexOptions.NonBacktracking, 10)]
         private static partial Regex SlugRegex();
     }

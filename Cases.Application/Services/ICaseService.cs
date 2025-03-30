@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cases.Application.Services
 {
+    //Interface for Service layer to define all service layer actions.
     public interface ICaseService
     {
         Task<bool> CreateAsync(Case caseItem, CancellationToken token = default);

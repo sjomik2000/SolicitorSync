@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+// Case request template to receive API request for updating an existing case.
 namespace Cases.Contracts.Requests;
 public class UpdateCaseRequest
     {

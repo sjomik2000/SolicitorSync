@@ -48,14 +48,12 @@ HTTP methods for Create, Update, Get, GetAll and Delete requests for the tempora
 - [x] Create Controllers, Services and Data Access Layers for the API.
 - [x] Implement middleware for validating Create Case requests. 
 - [x] Add logging to track API requests.
-- [ ] Implement middleware for error handling and logging of errors.
-- [ ] Expand error handling to catch API connection, and request errors.
-- [ ] Integrate Swagger for API documentation. Write unit tests for core functionality 
-(services/business logic).
+- [x] Implement middleware for error handling and logging of errors.
+- [x] Expand error handling to catch API connection, and request errors.
 - [ ] Add several unit tests using xUnit.
 - [ ] Simulate a pull request workflow.
 - [ ] Refactor code.
-- [ ] Add commenting to all the code files to explain its functionalities.
+- [x] Add commenting to all the code files to explain its functionalities.
 - [ ] Improve documentation.
 
 
@@ -84,6 +82,9 @@ file.
 request using FluentValidation package and added ValidationMappingMiddleware for API response.
 + 2025.03.19 - Added Logging information for API requests and Cancellation token for all layers 
 of actions down to the database.
++ 2025.03.29 - Added Serilog to log all API request information and actions undertaken into 
+LogRecords.txt file.
++ 2025.03.30 - Added Comments for every file within the project to explain all actions.
 
 
 

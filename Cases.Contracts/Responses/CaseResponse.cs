@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Case response template to be sent to the API response of the Case information for individual cases
 namespace Cases.Contracts.Responses;
-
 public class CaseResponse
     {
         public required Guid id { get; init; }

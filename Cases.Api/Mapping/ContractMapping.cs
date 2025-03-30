@@ -6,10 +6,14 @@ using Cases.Contracts.Requests;
 using Cases.Contracts.Responses;
 
 namespace Cases.Api.Mapping;
+// This file uses Cases.Contracts response and request templates to map API requests and
+// response into the functional formats.
 public static class ContractMapping
 {
 	public static Case MapToCase(this CreateCaseRequest request)
 	{
+        // During Create Case request a new GUID and created_date are generated,
+        // all other information is imported into the Case model
         return new Case
         {
             id = Guid.NewGuid(),
@@ -29,6 +33,7 @@ public static class ContractMapping
 
     public static CaseResponse MapToResponse(this Case caseItem)
     {
+        // During CaseResponse all information from the Case are passed back to the response
         return new CaseResponse
         {
             id = caseItem.id,
@@ -49,6 +54,7 @@ public static class ContractMapping
 
     public static CasesResponse MapToResponse(this IEnumerable<Case> cases)
     {
+        //CasesResponse mapping is used for GetAll method to send back all cases
         return new CasesResponse
         {
             Items = cases.Select(MapToResponse)
@@ -57,6 +63,8 @@ public static class ContractMapping
 
     public static Case MapToCase(this UpdateCaseRequest request, Guid id, Case existingCase)
     {
+        //UpdateCaseRequest only updates the provided values from the requests, updated_date is generated,
+        // old non updated values and updated values are used to replace the case.
         var updatedCase = new Case
         {
             id = id,

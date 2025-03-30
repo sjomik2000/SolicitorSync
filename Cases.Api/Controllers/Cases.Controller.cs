@@ -12,48 +12,62 @@ using Cases.Api;
 using System.Reflection.Metadata.Ecma335;
 using Cases.Application.Services;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Cases.Api.Controllers
 {
     [ApiController]
-    public class CasesController : ControllerBase
+    public class CasesController : ControllerBase // Controller class inherits ControllerBase class
     {
+        // _caseService and _logger objects are instantiated.
         private readonly ICaseService _caseService;
         private readonly ILogger<CasesController> _logger;
 
+        // CasesController constructor is used to inject information about _caseService and _logger.
         public CasesController(ICaseService caseRepository, ILogger<CasesController> logger)
         {
             _caseService = caseRepository;
             _logger = logger;
         }
 
-        [HttpPost(ApiEndpoints.Cases.Create)]
-        public async Task<IActionResult> Create([FromBody] CreateCaseRequest request)
+        [HttpPost(ApiEndpoints.Cases.Create)] // ApiEndpoint for Create method
+        // Create task uses HTTP body context to map request information into caseItem
+        public async Task<IActionResult> Create([FromBody] CreateCaseRequest request, CancellationToken token)
         {
+            // Create tasks uses HTTP body context to map request information into caseItem
             var caseItem = request.MapToCase();
-            var result = await _caseService.CreateAsync(caseItem);
+            // Service layer then interacts with repository to establish connection, perform actions and validate requests
+            var result = await _caseService.CreateAsync(caseItem, token);
+            // Action is logged
             _logger.LogInformation($"Created {caseItem.case_name} case in SQL database with the new slug: {caseItem.slug}.");
             return CreatedAtAction(nameof(Get), new { idOrSlug = caseItem.id }, caseItem);
         }
 
-        [HttpGet(ApiEndpoints.Cases.Get)]
-        public async Task<IActionResult> Get([FromRoute] string idOrSlug)
+        [HttpGet(ApiEndpoints.Cases.Get)] // ApiEndpoint for Get method
+        // Get task uses idOrSlug parameter to pass the ID to the service layer.
+        public async Task<IActionResult> Get([FromRoute] string idOrSlug, CancellationToken token)
         {
             var caseItem = Guid.TryParse(idOrSlug, out Guid id)
-                ? await _caseService.GetByIdAsync(id)
-                : await _caseService.GetBySlugAsync(idOrSlug);
+                // Service layer then interacts with repository to establish connection, perform actions and validate requests
+                ? await _caseService.GetByIdAsync(id, token)
+                : await _caseService.GetBySlugAsync(idOrSlug, token);
+            // If the case is not found 404 Not found is returned
             if (caseItem is null)
             {
                 return NotFound();
             }
+            // Action is logged
             _logger.LogInformation($"Retrieved case with slug: {caseItem.slug} from SQL database.");
+            // If the case is found the caseItem is mapped to the response contract
             var response = caseItem.MapToResponse();
             return Ok(response);
         }
-        [HttpGet(ApiEndpoints.Cases.GetAll)]
-        public async Task<IActionResult> GetAll()
+        [HttpGet(ApiEndpoints.Cases.GetAll)] // ApiEndpoint for GetAll method
+        public async Task<IActionResult> GetAll(CancellationToken token)
         {
-            var cases = await _caseService.GetAllAsync();
+            // Service layer then interacts with repository to establish connection, perform actions and validate requests
+            var cases = await _caseService.GetAllAsync(token);
+            // Action is logged
             int caseCount = cases.Count();
             if (caseCount == 1)
             {
@@ -63,38 +77,49 @@ namespace Cases.Api.Controllers
             {
                 _logger.LogInformation($"Retrieved {caseCount} cases from SQL database.");
             }
-            var casesResponse = cases.MapToResponse();
+            // All cases are mapped into CasesResponse and are sent back.
+            var casesResponse = cases.Select(caseItem => caseItem.MapToResponse());
             return Ok(casesResponse);
         }
 
-        [HttpPut(ApiEndpoints.Cases.Update)]
-        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateCaseRequest request)
+        [HttpPut(ApiEndpoints.Cases.Update)] // ApiEndpoint for Update method
+        public async Task<IActionResult> Update([FromRoute]Guid id, [FromBody]UpdateCaseRequest request, CancellationToken token)
         {
-            var caseItem = await _caseService.GetByIdAsync(id);
+            // Update method firstly retrieves old caseItem using GetByIdAsync (to be able to compare changes).
+            var caseItem = await _caseService.GetByIdAsync(id, token);
+            // The new request item and old caseItem are then mapped into UpdatedCase 
             caseItem = request.MapToCase(id, caseItem);
-            var updated = await _caseService.UpdateAsync(caseItem);
+            // Updated case is then updated on the database through service layer 
+            var updated = await _caseService.UpdateAsync(caseItem, token);
             if (updated is null)
             {
                 return NotFound();
             }
+            // Request is serialized and deserialized into specified format for logging update information
             var requestJson = JsonSerializer.Serialize(request);
             var requestDict = JsonSerializer.Deserialize<Dictionary<string, object>>(requestJson);
             var filteredRequestDict = requestDict.Where(kv => kv.Value != null && kv.Value.ToString() != string.Empty);
             var updatedValues = string.Join(", ", filteredRequestDict.Select(kv => $"{kv.Key}: {kv.Value}"));
+            // Action is logged
             _logger.LogInformation($"Updated case with slug: {caseItem.slug}.");
             _logger.LogInformation($"Values updated: {updatedValues}.");
+            // The updated case is mapped to response and returned
             var response = caseItem.MapToResponse();
             return Ok(response);
         }
-        [HttpDelete(ApiEndpoints.Cases.Delete)]
-        public async Task<IActionResult> Delete([FromRoute]Guid id)
+        [HttpDelete(ApiEndpoints.Cases.Delete)] //ApiEndpoint for Delete method
+        //Delete method takes provided id and deletes the case from the database
+        public async Task<IActionResult> Delete([FromRoute]Guid id, CancellationToken token)
         {
-            var caseItem = await _caseService.GetByIdAsync(id);
-            var deleted = await _caseService.DeleteByIdAsync(id);
+            //Using provided id the case is found in the database using GetByIdAsync method
+            var caseItem = await _caseService.GetByIdAsync(id, token);
+            // The case is deleted from the database
+            var deleted = await _caseService.DeleteByIdAsync(id, token);
             if (!deleted)
             {
-                return NotFound();
+                return NotFound(); //If case is not deleted 404 Not Found is returned
             }
+            // Action is Logged
             _logger.LogInformation($"Deleted case with slug: {caseItem.slug}.");
             return Ok();
         }
